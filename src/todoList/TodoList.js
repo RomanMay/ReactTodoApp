@@ -13,10 +13,12 @@ class TodoList extends React.Component {
 					key={index}
 					item={item}
 					index={index}
+					removeItem={this.props.removeItem}
+					markTodoDone={this.props.markTodoDone}
 				/>
 			);
 		});
-		return < ul >{items}</ul >
+		return <ul className="list-group" >{items}</ul>
 	}
 }
 export default TodoList

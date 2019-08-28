@@ -10,7 +10,7 @@ class TodoMain extends React.Component {
 		this.markTodoDone = this.markTodoDone.bind(this)
 		this.getValue = this.getValue.bind(this)
 		this.state = {
-			todoItems: [{ index: 1, value: 'git nahui', done: false }],
+			todoItems: [],
 			inputValue: ''
 		}
 
@@ -34,17 +34,27 @@ class TodoMain extends React.Component {
 		}))
 	}
 
-	removeItem() {
-
+	removeItem(index) {
+		this.setState(state => ({
+			todoItems: [...state.todoItems.slice(0, index), ...state.todoItems.slice(index + 1)],
+			inputValue: state.inputValue
+		}))
 	}
-	markTodoDone() {
-
+	markTodoDone(index) {
+		let todo = this.state.todoItems[index]
+		this.state.todoItems.splice(index, 1)
+		todo.done = !todo.done;
+		todo.done ? this.state.todoItems.push(todo) : this.state.todoItems.unshift(todo);
+		this.setState(state => ({
+			todoItems: state.todoItems,
+			inputValue: state.inputValue
+		}));
 	}
 	render() {
 		return (
 			<div>
 				<Input addItem={this.addItem} getValue={this.getValue} value={this.state.inputValue} />
-				<TodoList items={this.state.todoItems} />
+				<TodoList removeItem={this.removeItem} items={this.state.todoItems} markTodoDone={this.markTodoDone} />
 			</div>
 		)
 	}

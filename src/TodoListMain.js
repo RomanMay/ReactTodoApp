@@ -2,7 +2,6 @@ import React from 'react'
 import Input from './todoList/Input'
 import TodoItem from './todoList/TodoItem'
 import TodoList from './todoList/TodoList'
-import todosData from './todoList/todosData'
 import TodoMain from './todoList/TodoMain'
 import Clock from './demos/Clock'
 

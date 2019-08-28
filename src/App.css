@@ -215,3 +215,12 @@ a{
 	font-family: var(--font);
 }
 
+.done {
+	color: red;
+	text-decoration: line-through;
+  }
+  
+  .undone {
+	color: #61DAFB;
+  }
+
