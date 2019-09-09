@@ -11,12 +11,31 @@
 body{
 	background-image: url("https://images.wallpaperscraft.com/image/wood_black-and-white_from_below_trees_gloomy_kroner_fog_silence_60216_1280x720.jpg");
 	height: 100vh;
+	background-color: black;
 	background-position: center; 
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 }
-
+.list-group{
+	width: 100%;
+	margin: 0 auto;
+	
+}
+.changeTaskValue{
+	box-shadow: none;
+    width: 100%;
+    background: rgba(255, 255, 255, 0);
+    border: none;
+    border-bottom: 1px solid #f7f7f7;
+	color: #f7f7f7;
+	outline:0;
+	font-family: var(--font);
+}
+.taskText{
+	width: 400px;
+	line-height: 50px;
+}
 .main{
 	margin: 0 auto;
 	width: 100%;
@@ -24,7 +43,10 @@ body{
 	background: rgba(0, 0, 0, 0);
 
 }
-
+.todo-item{
+	color: white;
+	width: 80%;
+}
 .change{
 	margin-right: 300px;
 }
@@ -45,10 +67,10 @@ body{
 	cursor: pointer;
 	position: relative;
 	background: none;
-	color: aqua;
+	color: #e0f9f9;
 	text-transform: uppercase;
 	text-decoration: none;
-	border: 0.2em solid aqua;
+	border: 0.1em solid #e0f9f9;
 	padding: 0.5em 1em;
 	margin: 1em;
 }
@@ -63,7 +85,7 @@ body{
 	text-align: center;
 }
 .timer-color{
-	color:aqua;
+	color:#e0f9f9;
 }
 .title{
     width: 60%;
@@ -96,9 +118,14 @@ body{
 	font-family: var(--font);
 
 }
+.todosContainer{
+	width: 80%;
+	margin: 0 auto;
+}
 .input-form{
 	display: flex;
 	width: 80%;
+	margin: 0 auto;
 }
 .select{
 	color: black;
@@ -123,8 +150,6 @@ body{
 	outline:0;
 	font-family: var(--font);
 }
-
-
 
 .change{
 	width: 100px;
@@ -162,6 +187,17 @@ body{
 }
 .main-container{
 	width: 100%;
+}
+.doneButton, .closeButton, .changeButton{
+	cursor: pointer;
+	position: relative;
+	background: none;
+	color: #e0f9f9;
+	text-transform: uppercase;
+	text-decoration: none;
+	border: 0.1em solid #e0f9f9;
+	padding: 0.5em 1em;
+	margin: 1em;
 }
 input{
 	background-color: rgba(0, 0, 0, 0)
@@ -214,13 +250,19 @@ a{
 	padding: 20px;
 	font-family: var(--font);
 }
+.done, .undone{
+	width: 100%;
+	margin: 0 auto;
 
+	display: flex;
+	flex-direction: row;
+}
 .done {
 	color: red;
 	text-decoration: line-through;
   }
   
   .undone {
-	color: #61DAFB;
+	color:  #f7f7f7 ;
   }
 

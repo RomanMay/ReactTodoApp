@@ -6,15 +6,18 @@ class TodoList extends React.Component {
 		super(props)
 	}
 
+
 	render() {
-		const items = this.props.items.map((item, index) => {
+		const items = this.props.items.map((item) => {
 			return (
 				<TodoItem
-					key={index}
+					className="todosContainer"
+					key={item.id}
 					item={item}
-					index={index}
-					removeItem={this.props.removeItem}
-					markTodoDone={this.props.markTodoDone}
+					removeTask={this.props.removeTask}
+					markTaskDone={this.props.markTaskDone}
+					saveChangedValue={this.props.saveChangedValue}
+					changeTaskValue={this.props.changeTaskValue}
 				/>
 			);
 		});

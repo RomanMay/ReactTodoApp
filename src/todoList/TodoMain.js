@@ -5,56 +5,104 @@ import Input from './Input'
 class TodoMain extends React.Component {
 	constructor(props) {
 		super(props)
-		this.addItem = this.addItem.bind(this)
-		this.removeItem = this.removeItem.bind(this)
-		this.markTodoDone = this.markTodoDone.bind(this)
-		this.getValue = this.getValue.bind(this)
+		this.addTask = this.addTask.bind(this)
+		this.removeTask = this.removeTask.bind(this)
+		this.markTaskDone = this.markTaskDone.bind(this)
+		this.getInputValue = this.getInputValue.bind(this)
+		this.saveChangedValue = this.saveChangedValue.bind(this)
+		this.changeTaskValue = this.changeTaskValue.bind(this)
 		this.state = {
 			todoItems: [],
-			inputValue: ''
+			inputValue: '',
 		}
-
 	}
 
-	addItem() {
+	addTask() {
 		this.setState((state) => ({
 			todoItems: [...state.todoItems, {
-				index: state.todoItems.length + 1,
+				id: state.todoItems.length,
 				value: state.inputValue,
-				done: false
+				done: false,
 			}],
-			inputValue: state.inputValue
+			inputValue: ''
 		}))
 	}
 
-	getValue(taskInputValue) {
+	getInputValue(taskInputValue) {
 		this.setState((state) => ({
 			todoItems: state.todoItems,
 			inputValue: taskInputValue
 		}))
 	}
 
-	removeItem(index) {
+	removeTask(id) {
 		this.setState(state => ({
-			todoItems: [...state.todoItems.slice(0, index), ...state.todoItems.slice(index + 1)],
+			todoItems: state.todoItems.filter(e => e.id != id),
 			inputValue: state.inputValue
 		}))
 	}
-	markTodoDone(index) {
-		let todo = this.state.todoItems[index]
-		this.state.todoItems.splice(index, 1)
-		todo.done = !todo.done;
-		todo.done ? this.state.todoItems.push(todo) : this.state.todoItems.unshift(todo);
+
+	markTaskDone(id) {
+		this.setState(state => {
+			const updatedTodos = state.todoItems.map(todo => {
+				if (todo.id == id) {
+					todo.done = !todo.done
+				}
+				return todo
+			})
+			return {
+				todoItems: updatedTodos,
+				inputValue: state.inputValue
+			}
+		})
+	}
+
+	saveChangedValue(id, value) {
+
+		this.setState(state => {
+			state.todoItems.map(todo => {
+				if (todo.id == id) {
+					todo.value = value
+				}
+			})
+
+			return {
+				todoItems: state.todoItems,
+				inputValue: state.inputValue
+			}
+		})
+	}
+
+	changeTaskValue(e, id) {
+		const value = e.target.value
+		const newTodos = this.state.todoItems.map(todo => {
+			if (todo.id == id) {
+				todo.changedValue = value
+			}
+			return todo
+		})
+
 		this.setState(state => ({
 			todoItems: state.todoItems,
-			inputValue: state.inputValue
-		}));
+			inputValue: state.inputValue,
+			buttonValue: newTodos,
+			changedValue: value
+		}))
 	}
+
 	render() {
 		return (
 			<div>
-				<Input addItem={this.addItem} getValue={this.getValue} value={this.state.inputValue} />
-				<TodoList removeItem={this.removeItem} items={this.state.todoItems} markTodoDone={this.markTodoDone} />
+				<Input
+					addTask={this.addTask}
+					getInputValue={this.getInputValue}
+					value={this.state.inputValue} />
+				<TodoList
+					removeTask={this.removeTask}
+					items={this.state.todoItems}
+					markTaskDone={this.markTaskDone}
+					saveChangedValue={this.saveChangedValue}
+					changeTaskValue={this.changeTaskValue} />
 			</div>
 		)
 	}

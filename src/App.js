@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import TodoListMain from './TodoListMain'
 import Demos from './Demos'
-import './App.css';
+import './App.css'
 
 class MainApp extends React.Component {
 	constructor(props) {
