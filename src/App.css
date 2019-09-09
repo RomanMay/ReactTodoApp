@@ -9,7 +9,7 @@
 }
 
 body{
-	background-image: url("https://images.wallpaperscraft.com/image/wood_black-and-white_from_below_trees_gloomy_kroner_fog_silence_60216_1280x720.jpg");
+	/* background-image: url("https://images.wallpaperscraft.com/image/wood_black-and-white_from_below_trees_gloomy_kroner_fog_silence_60216_1280x720.jpg"); */
 	height: 100vh;
 	background-color: black;
 	background-position: center; 
@@ -117,6 +117,41 @@ body{
 	outline:0;
 	font-family: var(--font);
 
+}
+.formInput{
+	box-shadow: none;
+    background: rgba(255, 255, 255, 0);
+    margin: 0 30px 20px 30px;
+    padding: 6px;
+    border: none;
+    border-bottom: 1px solid #f7f7f7;
+	color: #f7f7f7;
+	outline:0;
+	font-family: var(--font);
+	text-align: center;
+}
+.formButton{
+	cursor: pointer;
+	position: relative;
+	background: none;
+	color: #e0f9f9;
+	text-transform: uppercase;
+	text-decoration: none;
+	border: 0.1em solid #e0f9f9;
+	padding: 0.5em 1em;
+	margin: 0 auto;
+	width: 150px;
+
+}
+.authForm{
+
+}
+.formGroup{
+	display:  flex;
+	flex-direction: column;
+	margin: 0 auto;
+	text-align: center;
+	width: 50%;
 }
 .todosContainer{
 	width: 80%;

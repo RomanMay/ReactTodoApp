@@ -15,7 +15,7 @@ class TodoItem extends React.Component {
 
 	onClickClose() {
 		const id = this.props.item.id
-		this.props.removeTask(id)
+		this.props.removeTask(id) 
 	}
 
 	onClickDone() {

@@ -49,7 +49,7 @@ class Input extends React.Component {
 							className="input-form__button"
 							id="add"
 							onClick={this.props.addTask} >
-							&#10011;
+						&#10011;
 						</button>
 					: ''
 				}
