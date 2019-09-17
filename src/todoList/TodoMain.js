@@ -2,7 +2,8 @@ import React from 'react'
 import TodoList from './TodoList'
 import Input from './Input'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-
+import { getAllTasks } from '../api/main'
+import axios from 'axios'
 
 class TodoMain extends React.Component {
 	constructor(props) {
@@ -15,19 +16,59 @@ class TodoMain extends React.Component {
 		this.changeTaskValue = this.changeTaskValue.bind(this)
 		this.state = {
 			todoItems: [],
-			inputValue: '',
+			inputValue: ''
 		}
 	}
 
+
+	componentDidMount() {
+		axios(
+			{
+				method: 'get',
+				url: 'http://localhost:3000/records/records',
+				headers: {
+					"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE1NjgyMjYzOTEsImlhdCI6MTU2ODIyNTc5MX0.DpWMBZrTJqCeMGTgrKZd6kUBfuapx6g_YNWMGbz_Bro"
+				}
+			})
+			.then(response => {
+				let res = response.data
+				this.setState(state => ({
+					todoItems: res,
+					inputValue: state.inputValue
+				}))
+			})
+			.catch(error => {
+				console.log('error' + error)
+			})
+
+
+	}
+
 	addTask() {
-		this.setState((state) => ({
-			todoItems: [...state.todoItems, {
-				id: state.todoItems.length,
-				value: state.inputValue,
-				done: false,
-			}],
-			inputValue: ''
-		}))
+		axios(
+			{
+				method: 'post',
+				url: 'http://localhost:3000/records/28',
+				headers: {
+					"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE1NjgyMjYzOTEsImlhdCI6MTU2ODIyNTc5MX0.DpWMBZrTJqCeMGTgrKZd6kUBfuapx6g_YNWMGbz_Bro"
+				},
+				data: {
+					record: this.state.inputValue,
+					done: false
+				}
+			}
+		)
+			.then(response => {
+				const body = response.data
+				this.setState((state) => ({
+					todoItems: [...state.todoItems, {
+						recordId: body.recordId,
+						record: body.record,
+						done: body.done,
+					}],
+					inputValue: ''
+				}))
+			})
 	}
 
 	getInputValue(taskInputValue) {
@@ -38,41 +79,84 @@ class TodoMain extends React.Component {
 	}
 
 	removeTask(id) {
-		this.setState(state => ({
-			todoItems: state.todoItems.filter(e => e.id != id),
-			inputValue: state.inputValue
-		}))
+		axios(
+			{
+				method: 'delete',
+				url: `http://localhost:3000/records/${id}`,
+				headers: {
+					"Access-Control-Allow-Origin": 'http://localhost:3000',
+					"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE1NjgyMjYzOTEsImlhdCI6MTU2ODIyNTc5MX0.DpWMBZrTJqCeMGTgrKZd6kUBfuapx6g_YNWMGbz_Bro"
+				},
+			}
+		)
+			.then(response => {
+				this.setState((state) => ({
+					todoItems: state.todoItems.filter(data => data.recordId != id),
+					inputValue: state.inputValue
+				}))
+			})
+
+
 	}
 
-	markTaskDone(id) {
-		this.setState(state => {
-			const updatedTodos = state.todoItems.map(todo => {
-				if (todo.id == id) {
-					todo.done = !todo.done
-				}
-				return todo
-			})
-			return {
-				todoItems: updatedTodos,
-				inputValue: state.inputValue
+	markTaskDone(id, task) {
+		axios({
+			method: 'put',
+			url: `http://localhost:3000/records/${id}`,
+			headers: {
+				"Access-Control-Allow-Origin": 'http://localhost:3000',
+				"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE1NjgyMjYzOTEsImlhdCI6MTU2ODIyNTc5MX0.DpWMBZrTJqCeMGTgrKZd6kUBfuapx6g_YNWMGbz_Bro"
+			},
+			data: {
+				done: !task.done
 			}
+
 		})
+			.then(response => {
+				console.log(this.state.todoItems.done, 'put')
+				console.log(response.data)
+				this.setState(state => {
+					const updatedTodos = state.todoItems.map(data => {
+						if (data.recordId == id) {
+							data.done = !data.done
+						}
+						return data
+					})
+					return {
+						todoItems: updatedTodos,
+						inputValue: state.inputValue
+					}
+				})
+			})
 	}
 
 	saveChangedValue(id, value) {
-
-		this.setState(state => {
-			state.todoItems.map(todo => {
-				if (todo.id == id) {
-					todo.value = value
-				}
-			})
-
-			return {
-				todoItems: state.todoItems,
-				inputValue: state.inputValue
+		axios({
+			method: 'put',
+			url: `http://localhost:3000/records/${id}`,
+			headers: {
+				"Access-Control-Allow-Origin": 'http://localhost:3000',
+				"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE1NjgyMjYzOTEsImlhdCI6MTU2ODIyNTc5MX0.DpWMBZrTJqCeMGTgrKZd6kUBfuapx6g_YNWMGbz_Bro"
+			},
+			data: {
+				record: value
 			}
 		})
+			.then(response => {
+				this.setState(state => {
+					state.todoItems.map(data => {
+						if (data.recordId == id) {
+							data.record = value
+						}
+					})
+
+					return {
+						todoItems: state.todoItems,
+						inputValue: state.inputValue
+					}
+				})
+			})
+
 	}
 
 	changeTaskValue(e, id) {
@@ -96,7 +180,7 @@ class TodoMain extends React.Component {
 		return (
 			<div>
 
-				
+
 				<Input
 					addTask={this.addTask}
 					getInputValue={this.getInputValue}

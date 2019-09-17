@@ -1,5 +1,6 @@
 import React from 'react'
 import TodoItem from './TodoItem'
+import axios from 'axios'
 
 class TodoList extends React.Component {
 	constructor(props) {
@@ -12,7 +13,7 @@ class TodoList extends React.Component {
 			return (
 				<TodoItem
 					className="todosContainer"
-					key={item.id}
+					key={item.recordId}
 					item={item}
 					removeTask={this.props.removeTask}
 					markTaskDone={this.props.markTaskDone}

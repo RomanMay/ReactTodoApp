@@ -11,10 +11,7 @@ class Register extends React.Component {
 	}
 	register(e) {
 		e.preventDefault()
-		// 	Auth.login(this.state.user, this.state.password)
-		//   .catch(function(err) {
-		//     console.log('Error logging in', err)
-		//   });
+
 	}
 	render() {
 		return (
@@ -23,19 +20,16 @@ class Register extends React.Component {
 					<input
 						className="formInput"
 						tupe='email'
-						// valueLink={this.linkState('user')}
 						placeholder='E-mail'
 					/>
 					<input
 						className="formInput"
 						tupe='text'
-						// valueLink={this.linkState('user')}
 						placeholder='Username'
 					/>
 					<input
 						className="formInput"
 						tupe='password'
-						// valueLink={this.linkState('password')}
 						placeholder='Password'
 					/>
 					<a

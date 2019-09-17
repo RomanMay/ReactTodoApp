@@ -8,23 +8,24 @@ class TodoItem extends React.Component {
 		this.onClickGoToEditMode = this.onClickGoToEditMode.bind(this)
 		this.onChangeTodoValue = this.onChangeTodoValue.bind(this)
 		this.state = {
-			currentValue: props.item.value,
+			currentValue: props.item.record,
 			changeButtonValue: false
 		}
 	}
 
 	onClickClose() {
-		const id = this.props.item.id
-		this.props.removeTask(id) 
+		const id = this.props.item.recordId
+		this.props.removeTask(id)
 	}
 
 	onClickDone() {
-		const id = this.props.item.id
-		this.props.markTaskDone(id)
+		const id = this.props.item.recordId
+		const task = this.props.item
+		this.props.markTaskDone(id, task)
 	}
 
 	onClickGoToEditMode() {
-		const id = this.props.item.id
+		const id = this.props.item.recordId
 		const value = this.state.currentValue
 		this.setState(state => ({
 			currentValue: state.currentValue,
@@ -48,7 +49,7 @@ class TodoItem extends React.Component {
 					<span
 						className="glyphicon glyphicon-ok icon"
 						aria-hidden="true"
-						onClick={this.onClickDone}>
+					>
 					</span>
 					<button
 						className="doneButton"
@@ -62,7 +63,7 @@ class TodoItem extends React.Component {
 								value={this.state.currentValue}
 								onChange={this.onChangeTodoValue}>
 							</input>
-							: this.props.item.value
+							: this.props.item.record
 						}
 					</div>
 					<button
