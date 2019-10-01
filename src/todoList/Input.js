@@ -23,7 +23,7 @@ class Input extends React.Component {
 	}
 
 	handleKeyDown = e => {
-		if (e.key == 'Enter') {
+		if (e.key === 'Enter') {
 			this.props.addTask()
 			this.manageButtonVisibility(true)
 			this.setState(state => ({
@@ -34,7 +34,7 @@ class Input extends React.Component {
 	}
 
 	handlerInputChange(e) {
-		const isLineEmpty = e.target.value.length == 0
+		const isLineEmpty = e.target.value.length === 0
 		const taskInputValue = e.target.value
 		this.manageButtonVisibility(isLineEmpty)
 		this.props.getInputValue(taskInputValue)
@@ -43,17 +43,18 @@ class Input extends React.Component {
 	render() {
 		return (
 			<div className="input-form">
-				{this.state.showButton == true
+				{this.state.showButton === true
 					? <button
-							type="submit"
-							className="input-form__button"
-							id="add"
-							onClick={this.props.addTask} >
-						&#10011;
-						</button>
+						type="submit"
+						className="btn waves-effect waves-light"
+						id="add"
+						onClick={this.props.addTask} >
+						<i className="small material-icons">add</i>
+					</button>
 					: ''
 				}
 				<input type="text"
+					className="input-field col s6"
 					id="task_input"
 					value={this.props.value}
 					onChange={this.handlerInputChange}

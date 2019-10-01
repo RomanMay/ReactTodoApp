@@ -44,7 +44,7 @@ class TodoItem extends React.Component {
 	render() {
 		let itemClass = this.props.item.done ? 'done' : 'undone'
 		return (
-			<li className="todo-item">
+			<li className="collection-item">
 				<div className={itemClass}>
 					<span
 						className="glyphicon glyphicon-ok icon"
@@ -52,14 +52,14 @@ class TodoItem extends React.Component {
 					>
 					</span>
 					<button
-						className="doneButton"
+						className="btn waves-effect indigo darken-2"
 						onClick={this.onClickDone}>
-						&#10003;
+						<i className="small material-icons">check</i>
 					</button>
 					<div className="taskText">
 						{this.state.changeButtonValue
 							? <input
-								className="changeTaskValue"
+								className="input-field col s6"
 								value={this.state.currentValue}
 								onChange={this.onChangeTodoValue}>
 							</input>
@@ -68,13 +68,13 @@ class TodoItem extends React.Component {
 					</div>
 					<button
 						type="button"
-						className="closeButton"
+						className="btn waves-effect red darken-2"
 						onClick={this.onClickClose}>
-						&times;
+						<i className="small material-icons">clear</i>
 					</button>
 
 					<button
-						className="changeButton"
+						className="btn waves-effect green darken-2"
 						onClick={this.onClickGoToEditMode}>
 						{this.state.changeButtonValue ? 'Save' : 'Change'}
 					</button>

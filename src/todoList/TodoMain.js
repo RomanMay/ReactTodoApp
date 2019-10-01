@@ -1,8 +1,6 @@
 import React from 'react'
 import TodoList from './TodoList'
 import Input from './Input'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { getAllTasks } from '../api/main'
 import axios from 'axios'
 
 class TodoMain extends React.Component {

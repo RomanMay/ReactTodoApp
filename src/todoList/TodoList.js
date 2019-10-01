@@ -1,6 +1,5 @@
 import React from 'react'
 import TodoItem from './TodoItem'
-import axios from 'axios'
 
 class TodoList extends React.Component {
 	constructor(props) {
@@ -22,7 +21,7 @@ class TodoList extends React.Component {
 				/>
 			);
 		});
-		return <ul className="list-group" >{items}</ul>
+		return <ul className="collection" >{items}</ul>
 	}
 }
 export default TodoList
